@@ -22,7 +22,7 @@
 #include "LoopClosing.h"
 #include "ORBmatcher.h"
 #include "Optimizer.h"
-
+#include "unistd.h"   //add 
 #include<mutex>
 
 namespace ORB_SLAM2
