@@ -32,6 +32,7 @@
 
 #include"Optimizer.h"
 #include"PnPsolver.h"
+#include "unistd.h"   //add 
 
 #include<iostream>
 
