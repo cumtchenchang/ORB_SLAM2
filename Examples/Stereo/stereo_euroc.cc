@@ -28,7 +28,9 @@
 #include<opencv2/core/core.hpp>
 
 #include<System.h>
-#include "unistd.h"   //add 
+// new add for caculating time
+#include<tic_toc.h>
+#include <GL/glew.h>
 
 using namespace std;
 
@@ -116,6 +118,7 @@ int main(int argc, char **argv)
     cv::Mat imLeft, imRight, imLeftRect, imRightRect;
     for(int ni=0; ni<nImages; ni++)
     {
+        TicToc PerimageProcessTime;
         // Read left and right images from file
         imLeft = cv::imread(vstrImageLeft[ni],CV_LOAD_IMAGE_UNCHANGED);
         imRight = cv::imread(vstrImageRight[ni],CV_LOAD_IMAGE_UNCHANGED);
@@ -168,6 +171,12 @@ int main(int argc, char **argv)
 
         if(ttrack<T)
             usleep((T-ttrack)*1e6);
+        //每帧间处理时间（ms）    
+        ofstream loop_path_file("/home/cc/output/ORB_perimage_process_time.txt", ios::app);
+        loop_path_file.setf(ios::fixed, ios::floatfield);
+        loop_path_file.precision(6);
+        loop_path_file << vTimeStamp[ni]<<" "<<PerimageProcessTime.toc() << endl;
+        loop_path_file.close();
     }
 
     // Stop all threads
